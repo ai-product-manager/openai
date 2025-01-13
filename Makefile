@@ -6,10 +6,10 @@ test:
 	python -m pytest -vv test_*.py
 
 format:
-	black *.py 
+	black *.py oalib/*.py
 
 lint:
-	pylint --disable=R,C --ignore-patterns=test_.*?py *.py 
+	pylint --disable=R,C --ignore-patterns=test_.*?py *.py oalib/*.py
 
 refactor: format lint
 

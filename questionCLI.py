@@ -1,37 +1,7 @@
 #!/usr/bin/env python3
 
-"""
-An openai api key is required to use this script.
-This uses an advanced GPT-3 model and I also used AI via Github Copilot to write this command-line interface.
-"""
-from dotenv import load_dotenv
-from openai import OpenAI
-import os
 import click
-
-load_dotenv()
-
-
-# build a function to submit a question with the latest version of the openai api and completition
-def submit_question(question):
-
-    client = OpenAI(
-        api_key=os.environ.get("OPENAI_API_KEY"),
-    )
-
-    response = client.chat.completions.create(
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": question},
-        ],
-        model="gpt-3.5-turbo",
-        max_tokens=100,
-        temperature=0.7,
-    )
-
-    completition = response.choices[0].message.content
-
-    return completition
+from oalib.solutions import submit_question
 
 
 @click.group()
