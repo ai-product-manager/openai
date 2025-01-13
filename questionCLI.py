@@ -4,26 +4,33 @@
 An openai api key is required to use this script.
 This uses an advanced GPT-3 model and I also used AI via Github Copilot to write this command-line interface.
 """
-
-import openai
+from dotenv import load_dotenv
+from openai import OpenAI
 import os
 import click
 
+load_dotenv()
 
 # build a function to submit a question with the latest version of the openai api and completition
 def submit_question(question):
-    openai.api_key = os.environ.get("OPENAI_API_KEY")
-    response = openai.ChatCompletion.create(
-        model="gpt-4",  # You can use "gpt-3.5-turbo" for a cheaper option
+
+    client = OpenAI(
+        api_key=os.environ.get("OPENAI_API_KEY"),
+    )
+
+    response = client.chat.completions.create(
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": question},
         ],
-        max_tokens=100,  # Adjust token limit based on your use case
-        temperature=0.7,  # Adjust creativity level
+        model="gpt-3.5-turbo",
+        max_tokens=100, 
+        temperature=0.7,
     )
-    # Return the generated response text
-    return response["choices"][0]["message"]["content"].strip()
+
+    completition = response.choices[0].message.content
+
+    return completition
 
 
 @click.group()
@@ -39,7 +46,8 @@ def ask(question):
     Example: ./questionCLI.py ask "What is the capital of France?"
     """
     response = submit_question(question)
-    echo(response)
+    # echo rhe response with color
+    click.echo(click.style(response, fg="green"))
 
 
 if __name__ == "__main__":
