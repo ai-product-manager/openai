@@ -11,6 +11,7 @@ import click
 
 load_dotenv()
 
+
 # build a function to submit a question with the latest version of the openai api and completition
 def submit_question(question):
 
@@ -24,7 +25,7 @@ def submit_question(question):
             {"role": "user", "content": question},
         ],
         model="gpt-3.5-turbo",
-        max_tokens=100, 
+        max_tokens=100,
         temperature=0.7,
     )
 
