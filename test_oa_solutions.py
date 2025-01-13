@@ -6,3 +6,4 @@ def test_submit_question():
     question = "What is the capital of France?"
     response = submit_question(question)
     assert "Paris" in response
+    
