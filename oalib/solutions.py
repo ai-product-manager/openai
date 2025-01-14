@@ -19,7 +19,7 @@ def submit_question(question):
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": question},
         ],
-        model="gpt-3.5-turbo",
+        model="gpt-4o",
         max_tokens=100,
         temperature=0.7,
     )
